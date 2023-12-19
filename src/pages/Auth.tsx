@@ -1,5 +1,16 @@
 import styled from "styled-components";
-const StyledContainer = styled.div`
+import { Button } from "../styles/Button";
+import { FcGoogle } from "react-icons/fc";
+import { useNavigate } from "react-router-dom";
+import { signInWithPopup } from "firebase/auth";
+import { auth, googleProvider } from "../configs/firebase";
+import { toast } from "react-hot-toast";
+import { useEffect } from "react";
+import { useState } from "react";
+import { StyledLink } from "../UI/Header";
+import { FaExclamation } from "react-icons/fa";
+
+const Wrapper = styled.div`
   background: url("/img/hero.jpeg");
   background-size: cover;
   background-position: top;
@@ -8,46 +19,100 @@ const StyledContainer = styled.div`
   width: 100%;
 `;
 
-const StyledDiv = styled.div`
+const Container = styled.div`
   padding-top: 30px;
   width: 50%;
   margin-left: auto;
 `;
 
-const StlyedH1 = styled.h1`
+const H1 = styled.h1`
   text-align: center;
-  color: #f6c104;
+  color: ${(p) => p.theme.colors.primaryTextColor};
   font-size: 48px;
 `;
 
-const StyledUl = styled.ul`
+const List = styled.ul`
   list-style-type: none;
   margin-top: 32px;
   display: flex;
   justify-content: space-around;
   flex-direction: column;
-  gap: 8px;
+  align-items: center;
+  gap: 28px;
 `;
 
-const StlyedLi = styled.li`
+const Item = styled.li`
   text-align: center;
-  color: #f6c104;
+  color: ${(p) => p.theme.colors.primaryTextColor};
   font-size: 24px;
 `;
 
+const GoogleIcon = styled(FcGoogle)`
+  font-size: 36px;
+  text-align: center;
+`;
+
+const ButtonSpan = styled.span`
+  font-size: 24px;
+  margin-left: 16px;
+`;
+
 export default function Auth() {
+  const navigate = useNavigate();
+  const [isSignedIn, setIsSignedIn] = useState(false);
+
+  const handleSignIn = async () => {
+    try {
+      const res = await signInWithPopup(auth, googleProvider);
+      if (!res.user) return;
+      const authInfo = {
+        userId: res.user.uid,
+        userName: res.user.displayName,
+        profilePhoto: res.user.photoURL,
+        isAuth: true,
+      };
+      localStorage.setItem("authInfo", JSON.stringify(authInfo));
+      toast.success("Sign in successful!");
+      navigate("/forecast");
+    } catch (err) {
+      toast.error("Sign in failed!");
+    }
+  };
+
+  useEffect(() => {
+    const authInfo = localStorage.getItem("authInfo");
+    if (authInfo) {
+      setIsSignedIn(true);
+    }
+  }, [isSignedIn]);
+
   return (
-    <>
-      <StyledContainer>
-        <StyledDiv>
-          <StlyedH1>Weather Wonders:</StlyedH1>
-          <StlyedH1>Discover Nature's Forecast</StlyedH1>
-          <StyledUl>
-            <StlyedLi>We have 2600 +</StlyedLi>
-            <StlyedLi>Sign In</StlyedLi>
-          </StyledUl>
-        </StyledDiv>
-      </StyledContainer>
-    </>
+    <Wrapper>
+      <Container>
+        <H1>
+          Weather Wonders:
+          <br />
+          Discover Nature's Forecast
+        </H1>
+        <List>
+          {isSignedIn ? (
+            <StyledLink to="/forecast" button>
+              Go Check Weather !
+            </StyledLink>
+          ) : (
+            <>
+              <Item>5 Million+ Customers, Infinite Satisfaction.</Item>
+              <Item>
+                Sign In Now to get <span>$500</span> voucher
+              </Item>
+              <Button onClick={handleSignIn} medium secondary outlined>
+                <GoogleIcon />
+                <ButtonSpan>Sign in</ButtonSpan>
+              </Button>
+            </>
+          )}
+        </List>
+      </Container>
+    </Wrapper>
   );
 }
