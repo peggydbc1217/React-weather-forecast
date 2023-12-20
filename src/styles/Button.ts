@@ -1,18 +1,18 @@
 import styled, { css } from "styled-components";
 
 interface LargeStylesProps {
-  large?: boolean;
-  medium?: boolean;
+  $large?: boolean;
+  $medium?: boolean;
 }
 
-const largeStyles = ({ large, medium }: LargeStylesProps) => {
-  if (large)
+const largeStyles = ({ $large, $medium }: LargeStylesProps) => {
+  if ($large)
     return css`
       padding: 8px;
       border-radius: 8px;
       font-size: 1.1em;
     `;
-  if (medium)
+  if ($medium)
     return css`
       padding: 6px;
       border-radius: 8px;
@@ -26,24 +26,24 @@ const largeStyles = ({ large, medium }: LargeStylesProps) => {
 };
 
 interface ButtonProps {
-  secondary?: boolean;
-  large?: boolean;
-  medium?: boolean;
-  outlined?: boolean;
+  $secondary?: boolean;
+  $large?: boolean;
+  $medium?: boolean;
+  $outlined?: boolean;
 }
 
 export const Button = styled.button<ButtonProps>`
   color: ${(p) => p.theme.colors.primaryTextColor};
   background-color: ${(p) =>
-    p.secondary ? p.theme.colors.secondary : p.theme.colors.primary};
+    p.$secondary ? p.theme.colors.secondary : p.theme.colors.primary};
   font-weight: bold;
 
   ${largeStyles}
 
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  border: ${(p) => p.outlined && `1px solid ${p.theme.colors.primary}`};
-  width: ${(p) => (p.large ? "250px" : "200px")};
-  height: ${(p) => (p.large ? "80px" : "60px")};
+  border: ${(p) => p.$outlined && `1px solid ${p.theme.colors.primary}`};
+  width: ${(p) => (p.$large ? "250px" : "200px")};
+  height: ${(p) => (p.$large ? "80px" : "60px")};
   border-radius: 10px;
   display: flex;
   justify-content: center;
@@ -59,7 +59,7 @@ export const Button = styled.button<ButtonProps>`
     transform: translateY(-3px);
     transition: all 0.3s ease-in-out;
     opacity: 0.8;
-    box-shadow: ${(p) => p.outlined && "0px 4px 4px rgba(255, 200, 0, 0.3)"};
+    box-shadow: ${(p) => p.$outlined && "0px 4px 4px rgba(255, 200, 0, 0.3)"};
   }
   &:active {
     transform: translateY(3px);

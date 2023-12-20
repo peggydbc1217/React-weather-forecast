@@ -11,6 +11,8 @@ import { GlobalStyles } from "./styles/Global";
 
 import { Toaster } from "react-hot-toast";
 
+import { PrimeReactProvider } from "primereact/api";
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -48,11 +50,13 @@ const toastOptions = {
 function App() {
   return (
     <>
-      <ThemeProvider theme={theme}>
-        <GlobalStyles />
-        <RouterProvider router={router} />
-        <Toaster position="top-center" toastOptions={toastOptions} />
-      </ThemeProvider>
+      <PrimeReactProvider>
+        <ThemeProvider theme={theme}>
+          <GlobalStyles />
+          <RouterProvider router={router} />
+          <Toaster position="top-center" toastOptions={toastOptions} />
+        </ThemeProvider>
+      </PrimeReactProvider>
     </>
   );
 }

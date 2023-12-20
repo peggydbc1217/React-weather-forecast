@@ -29,6 +29,9 @@ const H1 = styled.h1`
   text-align: center;
   color: ${(p) => p.theme.colors.primaryTextColor};
   font-size: 48px;
+  background-color: rgba(255, 255, 128, 0.3);
+  box-shadow: 0 0 80px 0 rgba(255, 255, 128, 0.7);
+  border-radius: 20%;
 `;
 
 const List = styled.ul`
@@ -96,7 +99,7 @@ export default function Auth() {
         </H1>
         <List>
           {isSignedIn ? (
-            <StyledLink to="/forecast" button>
+            <StyledLink to="/forecast" $button>
               Go Check Weather !
             </StyledLink>
           ) : (
@@ -105,7 +108,7 @@ export default function Auth() {
               <Item>
                 Sign In Now to get <span>$500</span> voucher
               </Item>
-              <Button onClick={handleSignIn} medium secondary outlined>
+              <Button onClick={handleSignIn} $medium $secondary $outlined>
                 <GoogleIcon />
                 <ButtonSpan>Sign in</ButtonSpan>
               </Button>

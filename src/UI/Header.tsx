@@ -1,6 +1,5 @@
-import React from "react";
 import styled from "styled-components";
-import { NavLink, keyframes } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 const StyledHeader = styled.header`
   background-color: black;
@@ -23,8 +22,8 @@ const StyledLogo = styled.img`
 `;
 
 interface StyledLinkProps {
-  logo?: boolean;
-  button?: boolean;
+  $logo?: boolean;
+  $button?: boolean;
 }
 
 export const StyledLink = styled(NavLink)<StyledLinkProps>`
@@ -33,21 +32,21 @@ export const StyledLink = styled(NavLink)<StyledLinkProps>`
   text-align: center;
   box-sizing: border-box;
   text-decoration: none;
-  color: ${(p) => (p.button ? p.theme.colors.primaryTextColor : "white")};
+  color: ${(p) => (p.$button ? p.theme.colors.primaryTextColor : "white")};
   font-size: 16px;
   margin: auto 0;
-  border-bottom: ${(p) => (p.button ? "1px solid #fad729" : "none")};
+  border-bottom: ${(p) => (p.$button ? "1px solid #fad729" : "none")};
 
   &:hover,
   &:active,
   &:focus {
     color: #fad729;
-    border-bottom: ${(p) => (p.logo ? "none" : "1px solid #fad729")};
+    border-bottom: ${(p) => (p.$logo ? "none" : "1px solid #fad729")};
     transition: all 0.3s ease-in-out;
-    transform: ${(p) => (p.button ? "" : "scale(1.1)")};
+    transform: ${(p) => (p.$button ? "" : "scale(1.1)")};
   }
 
-  animation: ${(p) => p.button && `sizeChange 1s ease-in-out infinite`};
+  animation: ${(p) => p.$button && `sizeChange 1s ease-in-out infinite`};
   /* &.active {
     color: red;
   } */
@@ -72,7 +71,7 @@ export default function Header() {
   return (
     <StyledHeader>
       <StyledList>
-        <StyledLink to="/" logo>
+        <StyledLink to="/" $logo>
           <StyledLogo src="/img/logo.png" alt="logo" />
         </StyledLink>
         <StyledLink to="/forecast">Weather Forecast</StyledLink>

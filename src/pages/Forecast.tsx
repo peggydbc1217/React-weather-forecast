@@ -1,4 +1,6 @@
 import styled from "styled-components";
+import ForceastMain from "../features/forecast/ForceastMain";
+import InputDateForm from "../features/forecast/InputDateForm";
 
 const Container = styled.div`
   width: 100%;
@@ -6,11 +8,10 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* background-image: url("/img/weather-bg.png"); */
   background-image: url("/img/taiwan-bg.png");
   background-size: cover;
   background-repeat: no-repeat;
-  background-position: bottom;
+  background-position: center;
 `;
 
 const Title = styled.h1`
@@ -24,6 +25,8 @@ export default function Forecast() {
   return (
     <Container>
       <Title>Weather Forecast</Title>
+      <InputDateForm />
+      <ForceastMain></ForceastMain>
     </Container>
   );
 }
