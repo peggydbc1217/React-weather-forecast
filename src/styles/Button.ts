@@ -16,12 +16,12 @@ const largeStyles = ({ $large, $medium }: LargeStylesProps) => {
     return css`
       padding: 6px;
       border-radius: 8px;
-      font-size: 0.8;
+      font-size: 0.8em;
     `;
   return css`
     padding: 4px;
     border-radius: 4px;
-    font-size: 0%.6;
+    font-size: 0.8em;
   `;
 };
 
@@ -42,8 +42,8 @@ export const Button = styled.button<ButtonProps>`
 
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border: ${(p) => p.$outlined && `1px solid ${p.theme.colors.primary}`};
-  width: ${(p) => (p.$large ? "250px" : "200px")};
-  height: ${(p) => (p.$large ? "80px" : "60px")};
+  width: ${(p) => (p.$large ? "250px" : p.$medium ? "150px" : "100px")};
+  height: ${(p) => (p.$large ? "80px" : p.$medium ? "60px" : "40px")};
   border-radius: 10px;
   display: flex;
   justify-content: center;
