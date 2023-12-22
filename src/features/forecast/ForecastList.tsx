@@ -19,7 +19,7 @@ import { CiStar } from "react-icons/ci";
 
 const StyledContainer = styled.div`
   width: 100%;
-  height: 34%;
+  height: 330px;
   padding: 16px;
   margin-top: 48px;
   background: rgba(0, 0, 0, 0.6);
@@ -52,9 +52,9 @@ const WeatherCard = styled.div`
   align-items: center;
   gap: 8px;
   width: 80%;
-  height: 280px;
   margin: 0 auto;
-  padding: 8px;
+  padding-bottom: 16px;
+  height: 300px;
   border-radius: 10px;
   background-color: rgba(255, 248, 220, 0.9);
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
@@ -119,7 +119,7 @@ export default function ForecastList() {
     }
   `;
 
-  //天氣預報的body template(prime react)
+  //未來天氣預報的Card(prime react)
   const weatherTemplate = (weather: WeatherData) => {
     return (
       <>

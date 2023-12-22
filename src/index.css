@@ -128,3 +128,12 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
 }
+
+.chart-container {
+  width: 600px;
+  height: 600px;
+  background-color:rgba(243, 231, 233,0.9);
+  border-radius: 10px;
+  margin-left: auto;
+  padding: 20px;
+}
