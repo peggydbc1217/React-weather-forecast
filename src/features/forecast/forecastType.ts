@@ -33,6 +33,30 @@ export interface WeatherData {
   dt_txt: string;
 }
 
+interface CityCoord {
+  lat: number;
+  lon: number;
+}
+
+interface City {
+  id: number;
+  name: string;
+  coord: CityCoord;
+  country: string;
+  population: number;
+  timezone: number;
+  sunrise: number;
+  sunset: number;
+}
+
+export interface WeatherApiResponse {
+  cod: string;
+  message: number;
+  cnt: number;
+  list: WeatherData[];
+  city: City;
+}
+
 // temp: number;
 // feels_like: number;
 // temp_min: number;

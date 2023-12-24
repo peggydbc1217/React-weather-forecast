@@ -6,7 +6,6 @@ import styled, { keyframes } from "styled-components";
 
 //type
 import { WeatherData } from "./forecastType";
-import data from "./weather.json";
 
 //icons
 import { FaCircleLeft } from "react-icons/fa6";
@@ -17,11 +16,13 @@ import { FaTemperatureArrowUp } from "react-icons/fa6";
 import { FaTemperatureArrowDown } from "react-icons/fa6";
 import { CiStar } from "react-icons/ci";
 
+//redux
+import { useForecastSelector } from "../../store/hooks";
+
 const StyledContainer = styled.div`
   width: 100%;
   height: 330px;
   padding: 16px;
-  margin-top: 48px;
   background: rgba(0, 0, 0, 0.6);
 `;
 
@@ -74,29 +75,11 @@ const FlexContainer = styled.div`
   display: flex;
   align-items: end;
   gap: 12px;
-  width: 120px;
+  width: 150px;
 `;
 
 export default function ForecastList() {
-  const [weatherData, setWeatherData] = useState<WeatherData[]>(data);
-
-  // const responsiveOptions: CarouselResponsiveOption[] = [
-  //   {
-  //     breakpoint: "1199px",
-  //     numVisible: 1,
-  //     numScroll: 1,
-  //   },
-  //   {
-  //     breakpoint: "991px",
-  //     numVisible: 2,
-  //     numScroll: 1,
-  //   },
-  //   {
-  //     breakpoint: "767px",
-  //     numVisible: 1,
-  //     numScroll: 1,
-  //   },
-  // ];
+  const weather = useForecastSelector((state) => state.forecast.weatherData);
 
   //根據props中的direction來決定要顯示的react icon 朝左朝右的方向鍵
   interface AnimatedIconProps {
@@ -133,25 +116,25 @@ export default function ForecastList() {
           <FlexContainer>
             <Star size={120} color="#f8b7aa" />
             <FaCloudShowersWater size={20} color="#6666ff" />
-            <p>降雨</p>
+            <p>POP</p>
             <p>{weather.pop * 100}%</p>
           </FlexContainer>
 
           <FlexContainer>
             <WiHumidity size={20} color="0000cc" />
-            <p>濕度</p>
+            <p>Humidity</p>
             <p>{weather.main.humidity}%</p>
           </FlexContainer>
 
           <FlexContainer>
             <FaTemperatureArrowUp size={20} color="#ff4c4c" />
-            <p>高溫</p>
+            <p>Temp max</p>
             <p>{Math.round(weather.main.temp_min)}°C</p>
           </FlexContainer>
 
           <FlexContainer>
             <FaTemperatureArrowDown size={20} color="0000cc" />
-            <p>低溫</p>
+            <p>Temp min</p>
             <p>{Math.round(weather.main.temp_max)}°C</p>
           </FlexContainer>
         </WeatherCard>
@@ -169,7 +152,7 @@ export default function ForecastList() {
   return (
     <StyledContainer>
       <Carousel
-        value={weatherData}
+        value={weather}
         numScroll={5}
         numVisible={3}
         circular

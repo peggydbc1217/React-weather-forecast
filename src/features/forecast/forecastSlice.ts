@@ -1,24 +1,44 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
+import { WeatherData } from "./forecastType";
 
-const initialState = { value: 0 };
+interface ForecastState {
+  weatherData: WeatherData[];
+  currentCity: string;
+  currentCountry: string;
+  isLoading: boolean;
+}
+
+const initialState: ForecastState = {
+  weatherData: [] as WeatherData[],
+  currentCity: "",
+  currentCountry: "TW",
+  isLoading: false,
+};
 
 const forecastSlice = createSlice({
   name: "forecast",
   initialState,
   reducers: {
-    increment(state) {
-      state.value++;
+    setWeatherData(state, action: PayloadAction<WeatherData[]>) {
+      state.weatherData = action.payload;
     },
-    decrement(state) {
-      state.value--;
+    setCurrentCity(state, action: PayloadAction<string>) {
+      state.currentCity = action.payload;
     },
-    incrementByAmount(state, action) {
-      state.value += action.payload;
+    setIsLoading(state, action: PayloadAction<boolean>) {
+      state.isLoading = action.payload;
+    },
+    setCurrentCountry(state, action: PayloadAction<string>) {
+      state.currentCountry = action.payload;
     },
   },
 });
 
-export const { increment, decrement, incrementByAmount } =
-  forecastSlice.actions;
+export const {
+  setWeatherData,
+  setCurrentCity,
+  setIsLoading,
+  setCurrentCountry,
+} = forecastSlice.actions;
 
 export default forecastSlice.reducer;

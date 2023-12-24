@@ -1,10 +1,13 @@
 import styled from "styled-components";
 import ForceastMain from "../features/forecast/ForceastMain";
 import InputDateForm from "../features/forecast/InputDateForm";
+import Loader from "../UI/Loader";
+
+import { useForecastSelector } from "../store/hooks";
 
 const Container = styled.div`
   width: 100%;
-  height: 100vh;
+  height: 1200px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -19,14 +22,20 @@ const Title = styled.h1`
   font-weight: 700;
   color: ${({ theme }) => theme.colors.primary};
   margin-top: 40px;
+  margin-bottom: 40px;
 `;
 
 export default function Forecast() {
+  const isLoading = useForecastSelector((state) => state.forecast.isLoading);
+  const cityName = useForecastSelector((state) => state.forecast.currentCity);
+
   return (
     <Container>
       <Title>Weather Forecast</Title>
       <InputDateForm />
-      <ForceastMain></ForceastMain>
+      {isLoading && <Loader />}
+      {/* {!isLoading && cityName && <ForceastMain />} */}
+      {<ForceastMain />}
     </Container>
   );
 }

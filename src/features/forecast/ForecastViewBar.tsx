@@ -1,5 +1,111 @@
-import React from "react";
+import { useForecastSelector } from "../../store/hooks";
+import { capitilizeFirstLetter } from "../../helpers/helper";
+
+import styled from "styled-components";
+
+const OuterCircle = styled.div`
+  width: 500px;
+  height: 500px;
+  background: conic-gradient(
+    rgba(199, 216, 239, 0.5) 5%,
+    rgba(42, 129, 250, 0.8) 30%,
+    rgba(199, 216, 239, 0.5) 60%,
+    rgba(42, 129, 250, 0.8) 90%,
+    rgba(199, 216, 239, 0.5)
+  );
+  border-radius: 50%;
+  position: relative;
+
+  animation: rotate 10s infinite linear;
+
+  @keyframes rotate {
+    to {
+      transform: rotate(1turn);
+    }
+  }
+
+  @media screen and (max-width: 1200px) {
+    width: 400px;
+    height: 400px;
+  }
+`;
+
+const InnerCircle = styled.div`
+  width: 400px;
+  height: 400px;
+  background-color: rgba(20, 52, 95, 0.7);
+  box-shadow: inset 0 0 40px rgba(137, 208, 244, 1);
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  @media screen and (max-width: 1200px) {
+    width: 300px;
+    height: 300px;
+  }
+`;
+
+const Container = styled.div`
+  position: relative;
+`;
+
+const WeatherInfo = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 2rem;
+  font-weight: 700;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+`;
+
+const FlexCenter = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+`;
 
 export default function ForecastViewBar() {
-  return <div>ForecastViewBar</div>;
+  const cityName = useForecastSelector((state) => state.forecast.currentCity);
+  const countryName = useForecastSelector(
+    (state) => state.forecast.currentCountry
+  );
+  const currentWeather = useForecastSelector(
+    (state) => state.forecast.weatherData[0]
+  );
+
+  return (
+    <>
+      <Container>
+        <OuterCircle>
+          <InnerCircle></InnerCircle>
+        </OuterCircle>
+        <WeatherInfo>
+          <img
+            src={`https://openweathermap.org/img/wn/${currentWeather?.weather[0]?.icon}@2x.png`}
+            alt="weather icon"
+          />
+          <FlexCenter>
+            <h2>{capitilizeFirstLetter(cityName)}</h2>
+            <span className={`fi fi-${countryName.toLowerCase()}`}></span>
+          </FlexCenter>
+          <FlexCenter>
+            <p className="forecast-viewvar-p">Tempature</p>
+            <p className="forecast-viewvar-p">{currentWeather?.main.temp} °C</p>
+          </FlexCenter>
+          <FlexCenter>
+            <p className="forecast-viewvar-p">precipitation </p>
+            <p className="forecast-viewvar-p">{currentWeather?.pop * 100}%</p>
+          </FlexCenter>
+        </WeatherInfo>
+      </Container>
+    </>
+  );
 }
