@@ -1,6 +1,4 @@
-import { current } from "@reduxjs/toolkit";
 import { WeatherData } from "../features/forecast/forecastType";
-import { date } from "zod";
 
 // extract everydays weather data(6AM, 12PM, 18PM) from weather forecast data
 export function getForecastByTime(data: WeatherData[]) {
@@ -20,7 +18,7 @@ export function capitilizeFirstLetter(str: string) {
   return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
-// extract everydays max and min temp
+// extract max and min temp for each day
 export interface TempMaxAndMin {
   [date: string]: { tempMax: number; tempMin: number };
 }

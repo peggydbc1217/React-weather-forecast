@@ -1,15 +1,21 @@
 import axios from "axios";
 import { AxiosResponse } from "axios";
+
+//Types
 import { CityGeoCode } from "../features/forecast/InputDateForm";
 import { WeatherApiResponse } from "../features/forecast/forecastType";
 import { WeatherData } from "../features/forecast/forecastType";
+
+//Helpers
 import { getForecastByTime } from "./helper";
+
+//Configs
+import { API_KEY, API_KEY_OPENWEATHER } from "../configs/config";
 const RESULTS_LIMIT = 25;
 const FORECAST_LIMIT = 40;
-const API_KEY = "lpUrT8KdRa+m1vrItL6A5Q==sOZcZ4wOj97GByDP";
-const API_KEY_OPENWEATHER = "a97897c2428e5a4ba77f2a0d9fd70ab7";
 import { toast } from "react-hot-toast";
 
+// get city list from API, used for autocomplete
 export async function getCityList(query: string): Promise<CityGeoCode[]> {
   try {
     const API_URL = `https://api.api-ninjas.com/v1/city?name=${query.toLowerCase()}&limit=${RESULTS_LIMIT}`;
@@ -34,6 +40,7 @@ export async function getCityList(query: string): Promise<CityGeoCode[]> {
   }
 }
 
+// get city geocode from API, used the response lat, lon to get weather forecast
 export async function getCityGeoCode(
   city: string
 ): Promise<{ lat: number; lon: number }> {
@@ -53,8 +60,7 @@ export async function getCityGeoCode(
   }
 }
 
-// get current weather forecast
-
+// get current weather forecast from API
 export async function getForecast(
   lat: number,
   lon: number
