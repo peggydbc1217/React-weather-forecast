@@ -15,6 +15,7 @@ export function getForecastByTime(data: WeatherData[]) {
 }
 
 export function capitilizeFirstLetter(str: string) {
+  if (!str) return str;
   return str.charAt(0).toUpperCase() + str.slice(1);
 }
 

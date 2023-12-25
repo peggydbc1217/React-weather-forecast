@@ -33,4 +33,16 @@
 
 .forecast-viewvar-p {
   font-size: 16px;
+  color: #29394c;
+  font-weight: 700;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.forecast-cityName {
+  font-size: 48px;
+  font-weight: 700;
+  color: #3f8a89;
 }

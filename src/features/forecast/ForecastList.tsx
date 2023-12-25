@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 //styles
 import { Carousel } from "primereact/carousel";
 import styled, { keyframes } from "styled-components";
@@ -13,7 +11,7 @@ import { FaCircleRight } from "react-icons/fa6";
 import { FaCloudShowersWater } from "react-icons/fa6";
 import { WiHumidity } from "react-icons/wi";
 import { FaTemperatureArrowUp } from "react-icons/fa6";
-import { FaTemperatureArrowDown } from "react-icons/fa6";
+import { FaWind } from "react-icons/fa6";
 import { CiStar } from "react-icons/ci";
 
 //redux
@@ -78,10 +76,11 @@ const FlexContainer = styled.div`
   width: 150px;
 `;
 
+// Component
 export default function ForecastList() {
   const weather = useForecastSelector((state) => state.forecast.weatherData);
 
-  //根據props中的direction來決定要顯示的react icon 朝左朝右的方向鍵
+  //根據props中的direction來決定要顯示Carousel中 朝左朝右的方向鍵
   interface AnimatedIconProps {
     direction: "left" | "right";
     size: number;
@@ -102,7 +101,7 @@ export default function ForecastList() {
     }
   `;
 
-  //未來天氣預報的Card(prime react)
+  //未來天氣預報的Card(prime react UI)
   const weatherTemplate = (weather: WeatherData) => {
     return (
       <>
@@ -111,7 +110,7 @@ export default function ForecastList() {
             src={`https://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`}
             alt="weather icon"
           />
-          <h3>{weather.dt_txt}</h3>
+          <h3 className="text-center">{weather.dt_txt}</h3>
 
           <FlexContainer>
             <Star size={120} color="#f8b7aa" />
@@ -128,25 +127,18 @@ export default function ForecastList() {
 
           <FlexContainer>
             <FaTemperatureArrowUp size={20} color="#ff4c4c" />
-            <p>Temp max</p>
-            <p>{Math.round(weather.main.temp_min)}°C</p>
+            <p>Temp</p>
+            <p>{Math.round(weather.main.temp)}°C</p>
           </FlexContainer>
 
           <FlexContainer>
-            <FaTemperatureArrowDown size={20} color="0000cc" />
-            <p>Temp min</p>
-            <p>{Math.round(weather.main.temp_max)}°C</p>
+            <FaWind size={20} color="0000cc" />
+            <p>Wind</p>
+            <p>{Math.round(weather.wind.speed)}m/s</p>
           </FlexContainer>
         </WeatherCard>
       </>
     );
-  };
-
-  //page state
-  const [page, setPage] = useState(0);
-
-  const handlePrevClick = () => {
-    setPage((prevPage) => (prevPage > 0 ? prevPage - 1 : prevPage));
   };
 
   return (
@@ -156,10 +148,8 @@ export default function ForecastList() {
         numScroll={5}
         numVisible={3}
         circular
-        // responsiveOptions={responsiveOptions}
         showIndicators
         showNavigators
-        page={page}
         itemTemplate={weatherTemplate}
         prevIcon={() => (
           <AnimatedIcon direction="left" size={45} color="#fbb9b9" />

@@ -1,6 +1,5 @@
 import { useForecastSelector } from "../../store/hooks";
 import { capitilizeFirstLetter } from "../../helpers/helper";
-
 import styled from "styled-components";
 
 const OuterCircle = styled.div`
@@ -8,9 +7,9 @@ const OuterCircle = styled.div`
   height: 500px;
   background: conic-gradient(
     rgba(199, 216, 239, 0.5) 5%,
-    rgba(42, 129, 250, 0.8) 30%,
+    rgba(249, 248, 147, 0.8) 30%,
     rgba(199, 216, 239, 0.5) 60%,
-    rgba(42, 129, 250, 0.8) 90%,
+    rgba(107, 163, 243, 0.8) 90%,
     rgba(199, 216, 239, 0.5)
   );
   border-radius: 50%;
@@ -33,7 +32,7 @@ const OuterCircle = styled.div`
 const InnerCircle = styled.div`
   width: 400px;
   height: 400px;
-  background-color: rgba(20, 52, 95, 0.7);
+  background-color: rgba(196, 251, 212, 0.7);
   box-shadow: inset 0 0 40px rgba(137, 208, 244, 1);
   border-radius: 50%;
   position: absolute;
@@ -72,6 +71,7 @@ const FlexCenter = styled.div`
   gap: 10px;
 `;
 
+// Component
 export default function ForecastViewBar() {
   const cityName = useForecastSelector((state) => state.forecast.currentCity);
   const countryName = useForecastSelector(
@@ -93,9 +93,14 @@ export default function ForecastViewBar() {
             alt="weather icon"
           />
           <FlexCenter>
-            <h2>{capitilizeFirstLetter(cityName)}</h2>
+            <h2 className="forecast-cityName">
+              {capitilizeFirstLetter(cityName)}
+            </h2>
             <span className={`fi fi-${countryName.toLowerCase()}`}></span>
           </FlexCenter>
+          <p className="forecast-viewvar-p">
+            {capitilizeFirstLetter(currentWeather?.weather[0].description)}
+          </p>
           <FlexCenter>
             <p className="forecast-viewvar-p">Tempature</p>
             <p className="forecast-viewvar-p">{currentWeather?.main.temp} °C</p>

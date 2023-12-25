@@ -6,7 +6,7 @@ import styled from "styled-components";
 import { Button } from "../../styles/Button";
 import toast from "react-hot-toast";
 
-//Refux
+//Redux
 import { useForecastDispatch } from "../../store/hooks";
 import {
   setWeatherData,
@@ -22,6 +22,9 @@ import { Controller, useForm } from "react-hook-form";
 import { getCityList } from "../../helpers/api";
 import { getCityGeoCode } from "../../helpers/api";
 import { getForecast } from "../../helpers/api";
+
+//firbse custom hook
+import useAddSearchedCity from "../../hooks/useAddSearchedCity";
 
 // zod schema for form validation
 const schema = z.object({
@@ -62,10 +65,15 @@ export interface CityGeoCode {
 
 //Component
 export default function InputDataForm() {
+  //autocomplete states
   const [cities, setcities] = useState<CityGeoCode[]>([]);
   const suggestions = cities.map((city) => city.name);
+  //redux states
   const dispatch = useForecastDispatch();
+  //firebase custom hook
+  const { addSearchedCity } = useAddSearchedCity();
 
+  //react-hook-form
   const {
     formState: { errors },
     handleSubmit,
@@ -104,7 +112,6 @@ export default function InputDataForm() {
       setcities(res);
       dispatch(setCurrentCountry(res[0].country));
     } catch (err) {
-      console.log(err);
       if (err instanceof Error) {
         throw new Error(err.message);
       }
@@ -132,6 +139,7 @@ export default function InputDataForm() {
       const res = await getForecast(lat, lon);
       dispatch(setCurrentCity(data.cityName));
       dispatch(setWeatherData(res));
+      addSearchedCity(data.cityName, lat, lon);
       showSuccess();
     } catch (err) {
       if (err instanceof Error) {

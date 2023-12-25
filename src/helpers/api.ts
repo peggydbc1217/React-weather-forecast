@@ -1,6 +1,6 @@
+//Axios
 import axios from "axios";
 import { AxiosResponse } from "axios";
-
 //Types
 import { CityGeoCode } from "../features/forecast/InputDateForm";
 import { WeatherApiResponse } from "../features/forecast/forecastType";
@@ -9,7 +9,7 @@ import { WeatherData } from "../features/forecast/forecastType";
 //Helpers
 import { getForecastByTime } from "./helper";
 
-//Configs
+//Configs and Const
 import { API_KEY, API_KEY_OPENWEATHER } from "../configs/config";
 const RESULTS_LIMIT = 25;
 const FORECAST_LIMIT = 40;
@@ -49,7 +49,7 @@ export async function getCityGeoCode(
 
     const res: AxiosResponse = await axios.get(API_URL);
     if (res.status !== 200 || res.data.length === 0)
-      throw new Error("Error fetching data or no data");
+      throw new Error("No city found, please try another city");
     return res.data[0];
   } catch (err) {
     if (err instanceof Error) {
@@ -74,7 +74,7 @@ export async function getForecast(
 
     const res = await axios.get<WeatherApiResponse>(API_URL);
     if (res.status !== 200 || res.data.list.length === 0)
-      throw new Error("Error fetching data or no data");
+      throw new Error("There is no data or city not found");
 
     const fiveDaysforecast = getForecastByTime(res.data.list);
 

@@ -55,8 +55,8 @@ export default function useGetChartSettings({
       },
       legend: {
         // display: true,
-        position: "bottom",
-        align: "center",
+        position: "bottom" as const,
+        align: "center" as const,
 
         labels: {
           color: "#B14A00",
@@ -82,7 +82,7 @@ export default function useGetChartSettings({
           // },
           label: function (tooltipItem: TooltipItem<"line">) {
             // Custom label
-            return " Max Temp " + tooltipItem.parsed.y;
+            return " Temp " + tooltipItem.parsed.y + "°C";
           },
         },
       },
