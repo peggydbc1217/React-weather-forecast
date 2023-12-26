@@ -25,6 +25,7 @@ import { getForecast } from "../../helpers/api";
 
 //firbse custom hook
 import useAddSearchedCity from "../../hooks/useAddSearchedCity";
+import useGetSearchedCity from "../../hooks/useGetSearchedCity";
 
 // zod schema for form validation
 const schema = z.object({
@@ -72,6 +73,9 @@ export default function InputDataForm() {
   const dispatch = useForecastDispatch();
   //firebase custom hook
   const { addSearchedCity } = useAddSearchedCity();
+
+  //firbase get searched city
+  const { city } = useGetSearchedCity();
 
   //react-hook-form
   const {
@@ -163,6 +167,7 @@ export default function InputDataForm() {
               <label htmlFor="cityName" className="forecast-form_label">
                 City Name
               </label>
+              {/* {city.length > 0 && <p>{city}</p>} */}
               <FlexContainer>
                 <AutoComplete
                   field="name"
