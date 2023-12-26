@@ -7,7 +7,6 @@ import { query } from "firebase/firestore";
 export default function useGetSearchedCity() {
   const [city, setCity] = useState<string[]>([]);
   const { userId } = JSON.parse(localStorage.getItem("authInfo") || "{}");
-  console.log(userId);
 
   const forecastCollectionRef = collection(db, "forecast");
 
@@ -23,15 +22,16 @@ export default function useGetSearchedCity() {
         );
         unsubscribe = onSnapshot(queryCities, (snapshot) => {
           const cities: string[] = [];
+
           snapshot.forEach((doc) => {
-            cities.push(doc.data().city);
+            const firebaseData = doc.data().city;
+            if (cities.includes(firebaseData)) return;
+            cities.push(firebaseData);
           });
           console.log(cities);
 
           setCity(cities);
         });
-
-        setCity(city);
       } catch (error) {
         if (error instanceof Error) {
           throw new Error(error.message);
@@ -40,7 +40,7 @@ export default function useGetSearchedCity() {
     };
     getCity();
     return () => unsubscribe();
-  }, [city, forecastCollectionRef, userId]);
+  }, [forecastCollectionRef, userId]);
 
   return { city };
 }

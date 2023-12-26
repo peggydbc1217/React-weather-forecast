@@ -75,7 +75,7 @@ export default function InputDataForm() {
   const { addSearchedCity } = useAddSearchedCity();
 
   //firbase get searched city
-  const { city } = useGetSearchedCity();
+  // const { city } = useGetSearchedCity();
 
   //react-hook-form
   const {
