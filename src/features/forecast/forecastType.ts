@@ -57,6 +57,11 @@ export interface WeatherApiResponse {
   city: City;
 }
 
+export interface WeatherDataAndCountry {
+  weatherData: WeatherData[];
+  currentCountry: string;
+}
+
 // temp: number;
 // feels_like: number;
 // temp_min: number;

@@ -20,11 +20,6 @@
   margin-bottom: 40px;
 }
 
-.forecast-form_label {
-  font-size: 1.5rem;
-  font-weight: 700;
-}
-
 .error-tag {
   position: absolute;
   top: 105%;
@@ -45,4 +40,5 @@
   font-size: 48px;
   font-weight: 700;
   color: #3f8a89;
+  text-align: center;
 }

@@ -93,21 +93,25 @@ export default function ForecastViewBar() {
             alt="weather icon"
           />
           <FlexCenter>
+            <span className={`fi fi-${countryName.toLowerCase()}`}></span>
             <h2 className="forecast-cityName">
               {capitilizeFirstLetter(cityName)}
             </h2>
-            <span className={`fi fi-${countryName.toLowerCase()}`}></span>
           </FlexCenter>
           <p className="forecast-viewvar-p">
             {capitilizeFirstLetter(currentWeather?.weather[0].description)}
           </p>
           <FlexCenter>
             <p className="forecast-viewvar-p">Tempature</p>
-            <p className="forecast-viewvar-p">{currentWeather?.main.temp} °C</p>
+            <p className="forecast-viewvar-p">
+              {currentWeather?.main.temp.toFixed(1)} °C
+            </p>
           </FlexCenter>
           <FlexCenter>
             <p className="forecast-viewvar-p">precipitation </p>
-            <p className="forecast-viewvar-p">{currentWeather?.pop * 100}%</p>
+            <p className="forecast-viewvar-p">
+              {(currentWeather?.pop * 100).toFixed(1)}%
+            </p>
           </FlexCenter>
         </WeatherInfo>
       </Container>

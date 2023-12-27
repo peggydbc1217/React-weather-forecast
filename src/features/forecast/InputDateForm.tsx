@@ -75,7 +75,7 @@ export default function InputDataForm() {
   const { addSearchedCity } = useAddSearchedCity();
 
   //firbase get searched city
-  // const { city } = useGetSearchedCity();
+  // const { searchedCities } = useGetSearchedCity();
 
   //react-hook-form
   const {
@@ -95,10 +95,10 @@ export default function InputDataForm() {
     toast.success("Forecast data loaded successfully");
   };
 
+  console.log("render");
+
   const showErrorMessage = (name: string) => {
     if (Object.keys(errors).includes(name)) {
-      console.log(errors.cityName?.message);
-
       return (
         <Tag
           severity="danger"
@@ -114,7 +114,6 @@ export default function InputDataForm() {
     try {
       const res = await getCityList(e.query);
       setcities(res);
-      dispatch(setCurrentCountry(res[0].country));
     } catch (err) {
       if (err instanceof Error) {
         throw new Error(err.message);
@@ -141,8 +140,11 @@ export default function InputDataForm() {
         throw new Error("City not found");
       }
       const res = await getForecast(lat, lon);
+      console.log(res);
+
       dispatch(setCurrentCity(data.cityName));
-      dispatch(setWeatherData(res));
+      dispatch(setCurrentCountry(res.currentCountry));
+      dispatch(setWeatherData(res.weatherData));
       addSearchedCity(data.cityName, lat, lon);
       showSuccess();
     } catch (err) {
@@ -155,6 +157,12 @@ export default function InputDataForm() {
     }
   };
 
+  const StyledLabel = styled.label`
+    color: #333;
+    font-size: 1.5rem;
+    font-weight: 700;
+  `;
+
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="forecast-form">
       <Controller
@@ -164,10 +172,17 @@ export default function InputDataForm() {
         render={({ field }) => {
           return (
             <Container>
-              <label htmlFor="cityName" className="forecast-form_label">
-                City Name
-              </label>
-              {/* {city.length > 0 && <p>{city}</p>} */}
+              {/* {searchedCities.length > 0 &&
+                searchedCities.map((searchedcity) => (
+                  <Button
+                    $tertiary
+                    key={searchedcity}
+                    onClick={() => setValue("cityName", searchedcity)}
+                  >
+                    {searchedcity}
+                  </Button>
+                ))} */}
+              <StyledLabel htmlFor="cityName">City Name</StyledLabel>
               <FlexContainer>
                 <AutoComplete
                   field="name"
@@ -179,7 +194,9 @@ export default function InputDataForm() {
                   completeMethod={search}
                   itemTemplate={itemTemplate}
                 />
-                <Button type="submit">Submit</Button>
+                <Button type="submit" $medium>
+                  Submit
+                </Button>
               </FlexContainer>
               {showErrorMessage("cityName")}
             </Container>

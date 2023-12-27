@@ -4,7 +4,7 @@ import { AxiosResponse } from "axios";
 //Types
 import { CityGeoCode } from "../features/forecast/InputDateForm";
 import { WeatherApiResponse } from "../features/forecast/forecastType";
-import { WeatherData } from "../features/forecast/forecastType";
+import { WeatherDataAndCountry } from "../features/forecast/forecastType";
 
 //Helpers
 import { getForecastByTime } from "./helper";
@@ -64,7 +64,7 @@ export async function getCityGeoCode(
 export async function getForecast(
   lat: number,
   lon: number
-): Promise<WeatherData[]> {
+): Promise<WeatherDataAndCountry> {
   try {
     const API_URL = `http://api.openweathermap.org/data/2.5/forecast?lat=${lat.toFixed(
       2
@@ -77,13 +77,17 @@ export async function getForecast(
       throw new Error("There is no data or city not found");
 
     const fiveDaysforecast = getForecastByTime(res.data.list);
-
-    return fiveDaysforecast;
+    const currentCountry = res.data.city.country;
+    const weatherDataAndCountry = {
+      weatherData: fiveDaysforecast,
+      currentCountry,
+    };
+    return weatherDataAndCountry;
   } catch (err) {
     if (err instanceof Error) {
       toast.error(err.message);
       throw new Error(err.message);
     }
-    return [];
+    return { weatherData: [], currentCountry: "" };
   }
 }

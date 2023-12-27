@@ -27,6 +27,7 @@ const largeStyles = ({ $large, $medium }: LargeStylesProps) => {
 
 interface ButtonProps {
   $secondary?: boolean;
+  $tertiary?: boolean;
   $large?: boolean;
   $medium?: boolean;
   $outlined?: boolean;
@@ -35,15 +36,20 @@ interface ButtonProps {
 export const Button = styled.button<ButtonProps>`
   color: ${(p) => p.theme.colors.primaryTextColor};
   background-color: ${(p) =>
-    p.$secondary ? p.theme.colors.secondary : p.theme.colors.primary};
+    p.$tertiary
+      ? p.$secondary
+        ? p.theme.colors.secondary
+        : p.theme.colors.tertiary
+      : p.theme.colors.primary};
+
   font-weight: bold;
 
   ${largeStyles}
 
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border: ${(p) => p.$outlined && `1px solid ${p.theme.colors.primary}`};
-  width: ${(p) => (p.$large ? "250px" : p.$medium ? "150px" : "100px")};
-  height: ${(p) => (p.$large ? "80px" : p.$medium ? "60px" : "40px")};
+  width: ${(p) => (p.$large ? "160px" : p.$medium ? "120px" : "100px")};
+  height: ${(p) => (p.$large ? "60px" : p.$medium ? "40px" : "30px")};
   border-radius: 10px;
   display: flex;
   justify-content: center;

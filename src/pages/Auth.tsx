@@ -8,15 +8,21 @@ import { toast } from "react-hot-toast";
 import { useEffect } from "react";
 import { useState } from "react";
 import { StyledLink } from "../UI/Header";
-import { FaExclamation } from "react-icons/fa";
+import useLazyBackgroundImage from "../hooks/useLazyBackgroundImg";
 
-const Wrapper = styled.div`
-  background: url("/img/hero.jpeg");
+interface WrapperProps {
+  $loaded: string;
+}
+
+const Wrapper = styled.div<WrapperProps>`
+  background: ${(p) =>
+    p.$loaded ? `url("/img/hero.jpeg")` : `url("/img/hero_low.jpg")`};
   background-size: cover;
   background-position: top;
   background-repeat: no-repeat;
   height: 100vh;
   width: 100%;
+  filter: ${(p) => (p.$loaded ? "blur(0)" : "blur(10px)")};
 `;
 
 const Container = styled.div`
@@ -63,6 +69,7 @@ const ButtonSpan = styled.span`
 export default function Auth() {
   const navigate = useNavigate();
   const [isSignedIn, setIsSignedIn] = useState(false);
+  const loaded = useLazyBackgroundImage("/img/hero.jpeg");
 
   const handleSignIn = async () => {
     try {
@@ -90,7 +97,7 @@ export default function Auth() {
   }, [isSignedIn]);
 
   return (
-    <Wrapper>
+    <Wrapper $loaded={loaded}>
       <Container>
         <H1>
           Weather Wonders:
@@ -108,7 +115,7 @@ export default function Auth() {
               <Item>
                 Sign In Now to get <span>$500</span> voucher
               </Item>
-              <Button onClick={handleSignIn} $medium $secondary $outlined>
+              <Button onClick={handleSignIn} $large $secondary $outlined>
                 <GoogleIcon />
                 <ButtonSpan>Sign in</ButtonSpan>
               </Button>

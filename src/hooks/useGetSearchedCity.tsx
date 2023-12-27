@@ -1,46 +1,31 @@
 import { collection, where } from "firebase/firestore";
 import { useEffect, useState } from "react";
-import { onSnapshot, orderBy } from "firebase/firestore";
+import { orderBy } from "firebase/firestore";
 import { db } from "../configs/firebase";
 import { query } from "firebase/firestore";
+import { getDocs } from "firebase/firestore";
 
 export default function useGetSearchedCity() {
-  const [city, setCity] = useState<string[]>([]);
+  const [searchedCities, setSearchedCities] = useState<string[]>([]);
   const { userId } = JSON.parse(localStorage.getItem("authInfo") || "{}");
 
   const forecastCollectionRef = collection(db, "forecast");
 
   useEffect(() => {
-    let unsubscribe = () => {};
     if (!userId) return;
-    const getCity = () => {
-      try {
-        const queryCities = query(
+    const fetchCities = async () => {
+      const querySnapshot = await getDocs(
+        query(
           forecastCollectionRef,
           where("userId", "==", userId),
           orderBy("createdAt", "desc")
-        );
-        unsubscribe = onSnapshot(queryCities, (snapshot) => {
-          const cities: string[] = [];
-
-          snapshot.forEach((doc) => {
-            const firebaseData = doc.data().city;
-            if (cities.includes(firebaseData)) return;
-            cities.push(firebaseData);
-          });
-          console.log(cities);
-
-          setCity(cities);
-        });
-      } catch (error) {
-        if (error instanceof Error) {
-          throw new Error(error.message);
-        }
-      }
+        )
+      );
+      const cities = querySnapshot.docs.map((doc) => doc.data().cityName);
+      setSearchedCities(cities);
     };
-    getCity();
-    return () => unsubscribe();
-  }, [forecastCollectionRef, userId]);
+    fetchCities();
+  }, [userId, forecastCollectionRef]);
 
-  return { city };
+  return { searchedCities };
 }
