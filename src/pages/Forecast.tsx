@@ -34,8 +34,7 @@ export default function Forecast() {
       <Title>Weather Forecast</Title>
       <InputDateForm />
       {isLoading && <Loader />}
-      {/* {!isLoading && cityName && <ForceastMain />} */}
-      {<ForceastMain />}
+      {!isLoading && cityName && <ForceastMain />}
     </Container>
   );
 }

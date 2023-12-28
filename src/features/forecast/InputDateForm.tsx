@@ -55,6 +55,12 @@ const FlexContainer = styled.div`
   gap: 8px;
 `;
 
+const StyledLabel = styled.label`
+  color: #333;
+  font-size: 1.5rem;
+  font-weight: 700;
+`;
+
 export interface CityGeoCode {
   name: string;
   latitude: number;
@@ -73,9 +79,9 @@ export default function InputDataForm() {
   const dispatch = useForecastDispatch();
   //firebase custom hook
   const { addSearchedCity } = useAddSearchedCity();
-
   //firbase get searched city
-  // const { searchedCities } = useGetSearchedCity();
+  const { searchedCities } = useGetSearchedCity();
+  console.log(searchedCities);
 
   //react-hook-form
   const {
@@ -94,8 +100,6 @@ export default function InputDataForm() {
   const showSuccess = () => {
     toast.success("Forecast data loaded successfully");
   };
-
-  console.log("render");
 
   const showErrorMessage = (name: string) => {
     if (Object.keys(errors).includes(name)) {
@@ -131,7 +135,7 @@ export default function InputDataForm() {
     );
   };
 
-  //Form Submit method
+  //Form Submit
   const onSubmit = async (data: Schema) => {
     try {
       dispatch(setIsLoading(true));
@@ -140,7 +144,6 @@ export default function InputDataForm() {
         throw new Error("City not found");
       }
       const res = await getForecast(lat, lon);
-      console.log(res);
 
       dispatch(setCurrentCity(data.cityName));
       dispatch(setCurrentCountry(res.currentCountry));
@@ -157,12 +160,6 @@ export default function InputDataForm() {
     }
   };
 
-  const StyledLabel = styled.label`
-    color: #333;
-    font-size: 1.5rem;
-    font-weight: 700;
-  `;
-
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="forecast-form">
       <Controller
@@ -172,16 +169,18 @@ export default function InputDataForm() {
         render={({ field }) => {
           return (
             <Container>
-              {/* {searchedCities.length > 0 &&
-                searchedCities.map((searchedcity) => (
-                  <Button
-                    $tertiary
-                    key={searchedcity}
-                    onClick={() => setValue("cityName", searchedcity)}
-                  >
-                    {searchedcity}
-                  </Button>
-                ))} */}
+              <FlexContainer>
+                {searchedCities.length > 0 &&
+                  searchedCities.map((searchedcity) => (
+                    <Button
+                      $tertiary
+                      key={searchedcity}
+                      onClick={() => setValue("cityName", searchedcity)}
+                    >
+                      {searchedcity}
+                    </Button>
+                  ))}
+              </FlexContainer>
               <StyledLabel htmlFor="cityName">City Name</StyledLabel>
               <FlexContainer>
                 <AutoComplete

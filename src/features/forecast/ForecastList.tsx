@@ -76,30 +76,30 @@ const FlexContainer = styled.div`
   width: 150px;
 `;
 
+//根據props中的direction來決定要顯示Carousel中 朝左朝右的方向鍵
+interface AnimatedIconProps {
+  direction: "left" | "right";
+  size: number;
+  color: string;
+}
+
+const AnimatedIcon = styled(({ direction, ...props }: AnimatedIconProps) => {
+  return direction === "right" ? (
+    <FaCircleRight {...props} />
+  ) : (
+    <FaCircleLeft {...props} />
+  );
+})`
+  transition: transform 0.1s ease-in-out;
+
+  &:active {
+    transform: scale(0.8);
+  }
+`;
+
 // Component
 export default function ForecastList() {
   const weather = useForecastSelector((state) => state.forecast.weatherData);
-
-  //根據props中的direction來決定要顯示Carousel中 朝左朝右的方向鍵
-  interface AnimatedIconProps {
-    direction: "left" | "right";
-    size: number;
-    color: string;
-  }
-
-  const AnimatedIcon = styled(({ direction, ...props }: AnimatedIconProps) => {
-    return direction === "right" ? (
-      <FaCircleRight {...props} />
-    ) : (
-      <FaCircleLeft {...props} />
-    );
-  })`
-    transition: transform 0.1s ease-in-out;
-
-    &:active {
-      transform: scale(0.8);
-    }
-  `;
 
   //未來天氣預報的Card(prime react UI)
   const weatherTemplate = (weather: WeatherData) => {
@@ -116,7 +116,7 @@ export default function ForecastList() {
             <Star size={120} color="#f8b7aa" />
             <FaCloudShowersWater size={20} color="#6666ff" />
             <p>POP</p>
-            <p>{weather.pop * 100}%</p>
+            <p>{(weather.pop * 100).toFixed(0)}%</p>
           </FlexContainer>
 
           <FlexContainer>
