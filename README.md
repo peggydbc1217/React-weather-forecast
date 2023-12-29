@@ -7,11 +7,10 @@ This application is designed to check current weather conditions and provide fut
 Completed on 29th December 2023.
 
 # 🌟Features🌟
-🌤️ Current weather condition for a specific city</br>
-📊 Five days weather report for a specific city</br>
-🔐  Google account Authentication(Login)</br>
-💾 Save searched city in Firebase</br>
-
+🌤️ Check the current weather conditions for a specific city.</br>
+📊 View a five-day weather forecast for a specific city.</br>
+🔐 Authenticate with your Google account (Login).</br>
+💾 Save your searched cities in Firebase.(Need to Login with Google)</br>
 
 # 🌐Live Demo🌐
 It's deployed and accessible via the following links:<br>
@@ -26,36 +25,36 @@ It's deployed and accessible via the following links:<br>
 
 # Tools
 
-### Front end -
+### Front end
 
-[![My Skills](https://skillicons.dev/icons?i=ts,react,redux,styledcomponents,html,css,bootstrap)](https://skillicons.dev)<br/>
-Prime React, React Router, React Hook form, React hot toast, React lazy image component, React icons, 
+[![My Skills](https://skillicons.dev/icons?i=ts,react,redux,styledcomponents,html,css)](https://skillicons.dev)<br/>
+React Router, React Hook form, React hot toast, React lazy image component, React icons, ChartJS, Prime React
 
-
-### Data Base -
+### Data Base 
 [![My Skills](https://skillicons.dev/icons?i=firebase)](https://skillicons.dev)</br>
-Firebase
+
 
 ### Build Tool
-[![My Skills](https://skillicons.dev/icons?i=vite)](https://skillicons.dev)
+[![My Skills](https://skillicons.dev/icons?i=vite)](https://skillicons.dev)</br>
+
 
 ### Deploy
+[![My Skills](https://skillicons.dev/icons?i=vercel)](https://skillicons.dev)</br>
 
-[![My Skills](https://skillicons.dev/icons?i=vercel)](https://skillicons.dev)-Frontend(Vercel)</br>
 
 ### Version control
+[![My Skills](https://skillicons.dev/icons?i=git,github)](https://skillicons.dev)</br>
 
-[![My Skills](https://skillicons.dev/icons?i=git,github)](https://skillicons.dev)
 
 ### Editor
+[![My Skills](https://skillicons.dev/icons?i=vscode)](https://skillicons.dev)</br>
 
-[![My Skills](https://skillicons.dev/icons?i=vscode)](https://skillicons.dev)
 
 # 🤔Reflection🤔
 
 ## What was the context for this project? (ie: was this a side project? was this for Turing? was this for an experiment?)
 
-This was a side project that showcases what I've learned since I began learning frontend development skills in 2022.
+This was a side project that showcases what I've learned since Sept 2023, espically for typescript and styled-component.
 
 ## What did you set out to build?
 
