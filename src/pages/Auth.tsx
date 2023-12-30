@@ -9,6 +9,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { StyledLink } from "../UI/Header";
 import useLazyBackgroundImage from "../hooks/useLazyBackgroundImg";
+import { device } from "../styles/Breakpoints";
 
 interface WrapperProps {
   $loaded: string;
@@ -38,6 +39,12 @@ const H1 = styled.h1`
   background-color: rgba(255, 255, 128, 0.3);
   box-shadow: 0 0 80px 0 rgba(255, 255, 128, 0.7);
   border-radius: 20%;
+  @media ${device.sm} {
+    font-size: 36px;
+  }
+  @media ${device.xs} {
+    font-size: 24px;
+  }
 `;
 
 const List = styled.ul`
