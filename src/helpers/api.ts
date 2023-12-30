@@ -45,7 +45,7 @@ export async function getCityGeoCode(
   city: string
 ): Promise<{ lat: number; lon: number }> {
   try {
-    const API_URL = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=a97897c2428e5a4ba77f2a0d9fd70ab7`;
+    const API_URL = `https://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=a97897c2428e5a4ba77f2a0d9fd70ab7`;
 
     const res: AxiosResponse = await axios.get(API_URL);
     if (res.status !== 200 || res.data.length === 0)
@@ -66,7 +66,7 @@ export async function getForecast(
   lon: number
 ): Promise<WeatherDataAndCountry> {
   try {
-    const API_URL = `http://api.openweathermap.org/data/2.5/forecast?lat=${lat.toFixed(
+    const API_URL = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat.toFixed(
       2
     )}&lon=${lon.toFixed(
       2
