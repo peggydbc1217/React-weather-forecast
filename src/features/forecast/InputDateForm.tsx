@@ -87,7 +87,6 @@ export default function InputDataForm() {
   const {
     formState: { errors },
     handleSubmit,
-    getValues,
     setValue,
     control,
     reset,
