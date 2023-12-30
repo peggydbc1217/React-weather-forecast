@@ -5,8 +5,11 @@ import { db } from "../configs/firebase";
 import { query } from "firebase/firestore";
 import { onSnapshot } from "firebase/firestore";
 
+// used to get the last 3 searched cities from firebase for a specific user
 export default function useGetSearchedCity() {
   const [searchedCities, setSearchedCities] = useState<string[]>([]);
+
+  //get the userId from localStorage
   const { userId } = JSON.parse(localStorage.getItem("authInfo") || "{}");
 
   useEffect(() => {

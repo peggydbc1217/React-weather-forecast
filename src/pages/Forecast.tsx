@@ -1,9 +1,8 @@
 import styled from "styled-components";
-import ForceastMain from "../features/forecast/ForceastMain";
+import ForceastResults from "../features/forecast/ForceastResults";
 import InputDateForm from "../features/forecast/InputDateForm";
 import { device } from "../styles/Breakpoints";
 import Loader from "../UI/Loader";
-
 import { useForecastSelector } from "../store/hooks";
 
 const Container = styled.div`
@@ -40,7 +39,7 @@ export default function Forecast() {
       <Title>Weather Forecast</Title>
       <InputDateForm />
       {isLoading && <Loader />}
-      {!isLoading && cityName && <ForceastMain />}
+      {!isLoading && cityName && <ForceastResults />}
     </Container>
   );
 }

@@ -58,9 +58,6 @@ export const StyledLink = styled(NavLink)<StyledLinkProps>`
   }
 
   animation: ${(p) => p.$button && `sizeChange 1s ease-in-out infinite`};
-  /* &.active {
-    color: red;
-  } */
 
   @keyframes sizeChange {
     0% {

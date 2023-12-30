@@ -1,4 +1,6 @@
+//react
 import { useState } from "react";
+
 //UI
 import { AutoComplete } from "primereact/autocomplete";
 import { Tag } from "primereact/tag";
@@ -16,7 +18,7 @@ import {
   setCurrentCountry,
 } from "./forecastSlice";
 
-//Form
+//Form validation and submission
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, useForm } from "react-hook-form";
@@ -28,7 +30,7 @@ import { getForecast } from "../../helpers/api";
 import useAddSearchedCity from "../../hooks/useAddSearchedCity";
 import useGetSearchedCity from "../../hooks/useGetSearchedCity";
 
-// zod schema for form validation
+// zod schema,this is used to form validation
 const schema = z.object({
   cityName: z
     .string()
@@ -66,6 +68,7 @@ const StyledLabel = styled.label`
   font-weight: 700;
 `;
 
+//type for autocomplete cities
 export interface CityGeoCode {
   name: string;
   latitude: number;
@@ -87,7 +90,7 @@ export default function InputDataForm() {
   //firbase get searched city
   const { searchedCities } = useGetSearchedCity();
 
-  //react-hook-form
+  //react-hook-form setting
   const {
     formState: { errors },
     handleSubmit,
@@ -116,7 +119,7 @@ export default function InputDataForm() {
     }
   };
 
-  //AutoComplete fetch suggestions
+  //fetch city suggestions for autocomplete
   const search = async (e: { query: string }) => {
     try {
       const res = await getCityList(e.query);
@@ -128,7 +131,7 @@ export default function InputDataForm() {
     }
   };
 
-  //AutoComplete item UI template
+  //AutoComplete city suggestion UI
   const itemTemplate = (__: string, index: number) => {
     return (
       <FlexContainer>
@@ -138,27 +141,40 @@ export default function InputDataForm() {
     );
   };
 
-  //Form Submit
+  //Form Submit function
   const onSubmit = async (data: Schema) => {
     try {
+      //show loading spinner
       dispatch(setIsLoading(true));
+
+      //get the lat and lon of the city
       const { lat, lon } = await getCityGeoCode(data.cityName);
       if (lat === 0 && lon === 0) {
         throw new Error("City not found");
       }
+
+      //use the lat and lon to get the weather forecast data
       const res = await getForecast(lat, lon);
 
+      //dispatch the data to redux store
       dispatch(setCurrentCity(data.cityName));
       dispatch(setCurrentCountry(res.currentCountry));
       dispatch(setWeatherData(res.weatherData));
+
+      //add the searched city to firebase
       addSearchedCity(data.cityName, lat, lon);
+
+      //show success toast
       showSuccess();
     } catch (err) {
       if (err instanceof Error) {
         throw new Error(err.message);
       }
     } finally {
+      //reset input field
       reset();
+
+      //hide loading spinner
       dispatch(setIsLoading(false));
     }
   };

@@ -1,16 +1,27 @@
+//styled component
 import styled from "styled-components";
 import { Button } from "../styles/Button";
+import { device } from "../styles/Breakpoints";
+
+//ui library
 import { FcGoogle } from "react-icons/fc";
+
+//react
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+
+//firebase
 import { signInWithPopup } from "firebase/auth";
 import { auth, googleProvider } from "../configs/firebase";
 import { toast } from "react-hot-toast";
-import { useEffect } from "react";
-import { useState } from "react";
-import { StyledLink } from "../UI/Header";
-import useLazyBackgroundImage from "../hooks/useLazyBackgroundImg";
-import { device } from "../styles/Breakpoints";
 
+//component
+import { StyledLink } from "../UI/Header";
+
+//custom hooks
+import useLazyBackgroundImage from "../hooks/useLazyBackgroundImg";
+
+//styled components
 interface WrapperProps {
   $loaded: string;
 }
@@ -39,8 +50,12 @@ const H1 = styled.h1`
   background-color: rgba(255, 255, 128, 0.3);
   box-shadow: 0 0 80px 0 rgba(255, 255, 128, 0.7);
   border-radius: 20%;
-  @media ${device.sm} {
+  @media ${device.md} {
     font-size: 36px;
+  }
+
+  @media ${device.sm} {
+    font-size: 30px;
   }
   @media ${device.xs} {
     font-size: 24px;
@@ -61,6 +76,12 @@ const Item = styled.li`
   text-align: center;
   color: ${(p) => p.theme.colors.primaryTextColor};
   font-size: 24px;
+  @media ${device.md} {
+    color: ${(p) => p.theme.colors.text};
+  }
+  @media ${device.xs} {
+    display: none;
+  }
 `;
 
 const GoogleIcon = styled(FcGoogle)`
@@ -73,15 +94,20 @@ const ButtonSpan = styled.span`
   margin-left: 16px;
 `;
 
+//Component
 export default function Auth() {
   const navigate = useNavigate();
   const [isSignedIn, setIsSignedIn] = useState(false);
+  //lazy load background image
   const loaded = useLazyBackgroundImage("/img/hero.jpeg");
 
+  //sigin in with google when buuton is clicked
   const handleSignIn = async () => {
     try {
       const res = await signInWithPopup(auth, googleProvider);
       if (!res.user) return;
+
+      //set authInfo to localStorage
       const authInfo = {
         userId: res.user.uid,
         userName: res.user.displayName,
@@ -89,6 +115,8 @@ export default function Auth() {
         isAuth: true,
       };
       localStorage.setItem("authInfo", JSON.stringify(authInfo));
+
+      //show success toast and navigate to forecast page
       toast.success("Sign in successful!");
       navigate("/forecast");
     } catch (err) {
@@ -96,6 +124,7 @@ export default function Auth() {
     }
   };
 
+  //check if user is signed in, used to show different ui
   useEffect(() => {
     const authInfo = localStorage.getItem("authInfo");
     if (authInfo) {

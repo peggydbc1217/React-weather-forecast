@@ -19,6 +19,7 @@ import { CiStar } from "react-icons/ci";
 //redux
 import { useForecastSelector } from "../../store/hooks";
 
+//styled components
 const StyledContainer = styled.div`
   width: 100%;
   height: 330px;
@@ -106,9 +107,11 @@ const AnimatedIcon = styled(({ direction, ...props }: AnimatedIconProps) => {
 `;
 
 // Component
-export default function ForecastList() {
+export default function ForecastCarousel() {
+  //get weather data from redux
   const weather = useForecastSelector((state) => state.forecast.weatherData);
 
+  //Carousel的responsive設定
   const responsiveOptions: CarouselResponsiveOption[] = [
     {
       breakpoint: "1199px",

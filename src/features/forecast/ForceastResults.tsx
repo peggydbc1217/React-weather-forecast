@@ -1,5 +1,5 @@
 import ForecastViewBar from "./ForecastViewBar";
-import ForecastList from "./ForecastList";
+import ForecastCarousel from "./ForecastCarousel";
 import ForecastChart from "./ForecastChart";
 import styled from "styled-components";
 import { device } from "../../styles/Breakpoints";
@@ -17,14 +17,14 @@ const Container = styled.div`
   }
 `;
 
-export default function ForceastMain() {
+export default function ForceastResults() {
   return (
     <>
       <Container>
         <ForecastViewBar></ForecastViewBar>
         <ForecastChart></ForecastChart>
       </Container>
-      <ForecastList></ForecastList>
+      <ForecastCarousel></ForecastCarousel>
     </>
   );
 }

@@ -3,6 +3,7 @@ import { capitilizeFirstLetter } from "../../helpers/helper";
 import styled from "styled-components";
 import { device } from "../../styles/Breakpoints";
 
+// Styled Components
 const OuterCircle = styled.div`
   width: 500px;
   height: 500px;
@@ -78,10 +79,13 @@ const FlexCenter = styled.div`
 
 // Component
 export default function ForecastViewBar() {
+  //get current searched city name from redux store
   const cityName = useForecastSelector((state) => state.forecast.currentCity);
+  //get current searched country name from redux store
   const countryName = useForecastSelector(
     (state) => state.forecast.currentCountry
   );
+  //get current weather data from redux store
   const currentWeather = useForecastSelector(
     (state) => state.forecast.weatherData[0]
   );

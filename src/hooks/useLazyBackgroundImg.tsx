@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 
+//Used to lazy load background images
 const useLazyBackgroundImg = (url: string) => {
   const [sourceLoaded, setSourceLoaded] = useState<string>("");
 

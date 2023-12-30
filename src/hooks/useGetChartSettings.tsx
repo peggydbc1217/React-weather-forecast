@@ -6,6 +6,7 @@ interface ChartSettingsProps {
   dateArr: string[];
 }
 
+// used to get the chartJS settings for the chart component, because the settings here takes too much space in the component
 export default function useGetChartSettings({
   tempMaxArr,
   tempMinArr,
@@ -78,12 +79,7 @@ export default function useGetChartSettings({
         bodyFont: { size: 16 },
         padding: 12,
         callbacks: {
-          // title: function (tooltipItems: TooltipItem<"line">[]) {
-          //   // Custom title
-          //   return tooltipItems[0].label;
-          // },
           label: function (tooltipItem: TooltipItem<"line">) {
-            // Custom label
             return " Temp " + tooltipItem.parsed.y + "°C";
           },
         },
