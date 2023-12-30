@@ -5,6 +5,7 @@ import { Tag } from "primereact/tag";
 import styled from "styled-components";
 import { Button } from "../../styles/Button";
 import toast from "react-hot-toast";
+import { device } from "../../styles/Breakpoints";
 
 //Redux
 import { useForecastDispatch } from "../../store/hooks";
@@ -53,6 +54,10 @@ const FlexContainer = styled.div`
   display: flex;
   align-items: center;
   gap: 8px;
+  @media ${device.sm} {
+    flex-direction: column;
+    gap: 16px;
+  }
 `;
 
 const StyledLabel = styled.label`
@@ -81,7 +86,6 @@ export default function InputDataForm() {
   const { addSearchedCity } = useAddSearchedCity();
   //firbase get searched city
   const { searchedCities } = useGetSearchedCity();
-  console.log(searchedCities);
 
   //react-hook-form
   const {

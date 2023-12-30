@@ -1,8 +1,10 @@
 import styled from "styled-components";
 import { NavLink } from "react-router-dom";
+import { device } from "../styles/Breakpoints";
 
 const StyledHeader = styled.header`
   background-color: black;
+  padding: 8px;
 `;
 
 const StyledList = styled.ul`
@@ -12,6 +14,15 @@ const StyledList = styled.ul`
   align-items: center;
   gap: 36px;
   border-bottom: 8px solid transparent;
+  @media ${device.md} {
+    justify-content: space-between;
+    gap: 8px;
+  }
+  @media ${device.sm} {
+    width: 100%;
+    flex-direction: column;
+    gap: 8px;
+  }
 `;
 
 const StyledLogo = styled.img`

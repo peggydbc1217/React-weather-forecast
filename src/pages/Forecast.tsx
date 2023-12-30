@@ -1,13 +1,15 @@
 import styled from "styled-components";
 import ForceastMain from "../features/forecast/ForceastMain";
 import InputDateForm from "../features/forecast/InputDateForm";
+import { device } from "../styles/Breakpoints";
 import Loader from "../UI/Loader";
 
 import { useForecastSelector } from "../store/hooks";
 
 const Container = styled.div`
   width: 100%;
-  height: 1200px;
+  height: 100%;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -23,6 +25,10 @@ const Title = styled.h1`
   color: ${({ theme }) => theme.colors.primary};
   margin-top: 40px;
   margin-bottom: 40px;
+  text-align: center;
+  @media ${device.md} {
+    font-size: 32px;
+  }
 `;
 
 export default function Forecast() {

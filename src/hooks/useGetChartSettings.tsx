@@ -40,6 +40,8 @@ export default function useGetChartSettings({
 
   const options = {
     type: "line",
+    responsive: true,
+    maintainAspectRatio: false,
     aspectRatio: 1,
     plugins: {
       title: {
@@ -101,9 +103,11 @@ export default function useGetChartSettings({
         ticks: {
           color: "#B14A00",
           font: {
-            size: 16,
+            size: 14,
             family: "Preahvihear",
           },
+          maxRotation: 30,
+          minRotation: 30,
           min: 2016,
           max: 2020,
           stepSize: 1,
@@ -125,7 +129,7 @@ export default function useGetChartSettings({
         ticks: {
           color: "#B14A00",
           font: {
-            size: 16,
+            size: 18,
             family: "Preahvihear",
           },
           min: 0,

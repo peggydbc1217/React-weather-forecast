@@ -1,6 +1,8 @@
 //styles
-import { Carousel } from "primereact/carousel";
 import styled, { keyframes } from "styled-components";
+import { Carousel } from "primereact/carousel";
+import { CarouselResponsiveOption } from "primereact/carousel";
+import { device } from "../../styles/Breakpoints";
 
 //type
 import { WeatherData } from "./forecastType";
@@ -50,12 +52,17 @@ const WeatherCard = styled.div`
   justify-content: space-around;
   align-items: center;
   gap: 8px;
+
   width: 80%;
+  @media ${device.xs} {
+    width: 95%;
+  }
+  height: 300px;
   margin: 0 auto;
   padding-bottom: 16px;
-  height: 300px;
-  border-radius: 10px;
+
   background-color: rgba(255, 248, 220, 0.9);
+  border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
   &:hover {
     animation: ${rainbow} 15s ease-in-out infinite;
@@ -67,6 +74,7 @@ const WeatherCard = styled.div`
   }
   position: relative;
   overflow: hidden;
+  visibility: visible;
 `;
 
 const FlexContainer = styled.div`
@@ -100,6 +108,19 @@ const AnimatedIcon = styled(({ direction, ...props }: AnimatedIconProps) => {
 // Component
 export default function ForecastList() {
   const weather = useForecastSelector((state) => state.forecast.weatherData);
+
+  const responsiveOptions: CarouselResponsiveOption[] = [
+    {
+      breakpoint: "1199px",
+      numVisible: 2,
+      numScroll: 2,
+    },
+    {
+      breakpoint: "600px",
+      numVisible: 1,
+      numScroll: 1,
+    },
+  ];
 
   //未來天氣預報的Card(prime react UI)
   const weatherTemplate = (weather: WeatherData) => {
@@ -145,8 +166,9 @@ export default function ForecastList() {
     <StyledContainer>
       <Carousel
         value={weather}
-        numScroll={5}
+        numScroll={3}
         numVisible={3}
+        responsiveOptions={responsiveOptions}
         circular
         showIndicators
         showNavigators

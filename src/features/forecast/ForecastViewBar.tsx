@@ -1,6 +1,7 @@
 import { useForecastSelector } from "../../store/hooks";
 import { capitilizeFirstLetter } from "../../helpers/helper";
 import styled from "styled-components";
+import { device } from "../../styles/Breakpoints";
 
 const OuterCircle = styled.div`
   width: 500px;
@@ -27,6 +28,10 @@ const OuterCircle = styled.div`
     width: 400px;
     height: 400px;
   }
+  @media ${device.lg} {
+    width: 300px;
+    height: 300px;
+  }
 `;
 
 const InnerCircle = styled.div`
@@ -39,7 +44,7 @@ const InnerCircle = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  @media screen and (max-width: 1200px) {
+  @media ${device.lg} {
     width: 300px;
     height: 300px;
   }

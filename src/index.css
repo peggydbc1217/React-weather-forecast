@@ -10,6 +10,18 @@
   background-color: rgba(243, 231, 233, 0.9);
   border-radius: 10px;
   padding: 20px;
+  @media (max-width: 768px) {
+    width: 450px;
+    height: 450px;
+  }
+  @media (max-width: 536px) {
+    width: 380px;
+    height: 380px;
+  }
+  @media (max-width: 400px) {
+    width: 300px;
+    height: 580px;
+  }
 }
 
 .forecast-form {
@@ -41,4 +53,13 @@
   font-weight: 700;
   color: #3f8a89;
   text-align: center;
+}
+
+//remove prime react carousel indicators
+.p-carousel-indicators {
+  display: none !important;
+}
+
+.p-reset {
+  display: none !important;
 }

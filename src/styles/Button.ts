@@ -36,10 +36,10 @@ interface ButtonProps {
 export const Button = styled.button<ButtonProps>`
   color: ${(p) => p.theme.colors.primaryTextColor};
   background-color: ${(p) =>
-    p.$tertiary
-      ? p.$secondary
-        ? p.theme.colors.secondary
-        : p.theme.colors.tertiary
+    p.$secondary
+      ? p.theme.colors.secondary
+      : p.$tertiary
+      ? p.theme.colors.tertiary
       : p.theme.colors.primary};
 
   font-weight: bold;
