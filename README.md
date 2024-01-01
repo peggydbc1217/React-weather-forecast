@@ -1,4 +1,4 @@
-# 🌤️React-Firebase-Weather-Forecast🌤
+# 🌤️React-Firebase-Weather-Forecast
 
 This application is designed to check current weather conditions and provide future five-day weather information. The API is provided by [OpenWeather](https://openweathermap.org/).<br/>
 
