@@ -2,6 +2,30 @@
 
 This application is designed to check current weather conditions and provide future five-day weather information. The API is provided by [OpenWeather](https://openweathermap.org/).<br/>
 
+## Prerequisites
+This project requires NodeJS (version 18 or later) and NPM.
+
+## Installation
+
+Start with cloning this repo on your local machine:
+```sh
+$ git clone https://github.com/ORG/PROJECT.git
+```
+
+To install and set up the library, run:
+```sh
+$ npm install 
+```
+
+## Usage
+
+### Start the app
+
+```sh
+$ npm run dev
+```
+
+
 # 🚧Project Status🚧
 
 Completed on 29th December 2023.
