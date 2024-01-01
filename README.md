@@ -15,7 +15,7 @@ Completed on 29th December 2023.
 
 # 🌐Live Demo🌐
 It's deployed and accessible via the following links:<br>
-[WeatherForecast on Vercel]([https://flight-ease.vercel.app/](https://skydirect-weather-forecast.vercel.app/)) or [Youtube Video Demo](https://www.youtube.com/watch?v=LUg-7Pdlrbw).
+[WeatherForecast on Vercel](https://skydirect-weather-forecast.vercel.app/) or [Youtube Video Demo](https://www.youtube.com/watch?v=LUg-7Pdlrbw).
 
 # 📷Screen Shot(s) of some features 📷
 
