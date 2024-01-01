@@ -17,14 +17,6 @@ Completed on 29th December 2023.
 It's deployed and accessible via the following links:<br>
 [WeatherForecast on Vercel](https://skydirect-weather-forecast.vercel.app/) or [Youtube Video Demo](https://www.youtube.com/watch?v=LUg-7Pdlrbw).
 
-# 📷Screen Shot(s) of some features 📷
-
-#### 1.Weather Search
-
-![image](![image](https://github.com/peggydbc1217/React-weather-forecast/assets/42536652/0d1190d6-8e20-4f02-8d64-d1e1ac18f6f8)
-)
-
-
 # Tools
 
 ### Front end
