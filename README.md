@@ -9,7 +9,7 @@ This project requires NodeJS (version 18 or later) and NPM.
 
 Start with cloning this repo on your local machine:
 ```sh
-$ git clone https://github.com/ORG/PROJECT.git
+$ git clone https://github.com/peggydbc1217/React-weather-forecast.git
 ```
 
 To install and set up the library, run:
